@@ -64,3 +64,15 @@ module "org-policy-restrictVpcPeering" {
   policy_type = "list"
   enforce     = false
 }
+
+module "project-iam-bindings" {
+  source   = "terraform-google-modules/iam/google//modules/projects_iam"
+  projects = [module.project-factory.project_id]
+  mode     = "additive"
+
+  bindings = {
+    "roles/clouddeploy.admin" = [
+      "serviceAccount:${module.project-factory.project_number}@cloudbuild.gserviceaccount.com",
+    ]
+  }
+}
