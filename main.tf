@@ -74,5 +74,9 @@ module "project-iam-bindings" {
     "roles/clouddeploy.admin" = [
       "serviceAccount:${module.project-factory.project_number}@cloudbuild.gserviceaccount.com",
     ]
+
+    "roles/editor" = [
+      "serviceAccount:${module.project-factory.project_number}-compute@developer.gserviceaccount.com",
+    ]
   }
 }
