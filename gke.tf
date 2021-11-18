@@ -1,15 +1,3 @@
-module "gke-dev" {
-  source                   = "terraform-google-modules/kubernetes-engine/google"
-  project_id               = module.project-factory.project_id
-  name                     = "dev"
-  region                   = var.region
-  network                  = module.vpc.network_name
-  subnetwork               = module.vpc.subnets_names[0]
-  ip_range_pods            = "${var.subnet}-gke-dev-pods"
-  ip_range_services        = "${var.subnet}-gke-dev-services"
-  remove_default_node_pool = true
-}
-
 module "gke-test" {
   source                   = "terraform-google-modules/kubernetes-engine/google"
   project_id               = module.project-factory.project_id
