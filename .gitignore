@@ -34,3 +34,4 @@ override.tf.json
 terraform.rc
 
 backend.tf
+clouddeploy.yaml

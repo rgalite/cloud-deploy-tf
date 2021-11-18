@@ -10,6 +10,7 @@ module "project-factory" {
     "compute.googleapis.com",
     "container.googleapis.com",
     "sourcerepo.googleapis.com",
+    "clouddeploy.googleapis.com",
   ]
 }
 
