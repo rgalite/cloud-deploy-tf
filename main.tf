@@ -6,10 +6,11 @@ module "project-factory" {
   billing_account         = var.billing_account
   default_service_account = "deprivilege"
 
-  activate_api_identities = [{
-    api   = "container.googleapis.com"
-    roles = []
-  }]
+  activate_apis = [
+    "compute.googleapis.com",
+    "container.googleapis.com",
+    "sourcerepo.googleapis.com",
+  ]
 }
 
 module "org-policy-requireOsLogin" {
