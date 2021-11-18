@@ -27,3 +27,4 @@ metadata:
 description: production cluster
 gke:
  cluster: projects/${PROJECT_ID}/locations/${REGION}/clusters/prod
+requireApproval: true
