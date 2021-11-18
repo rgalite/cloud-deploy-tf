@@ -1,3 +1,6 @@
 project_name    = "<UPDATE_ME>"
 organization_id = "<UPDATE_ME>"
 billing_account = "<UPDATE_ME>"
+network         = "<UPDATE_ME>"
+subnet          = "<UPDATE_ME>"
+subnet_ip       = "<UPDATE_ME>"

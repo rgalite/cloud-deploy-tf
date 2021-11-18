@@ -8,7 +8,7 @@ module "vpc" {
     {
       subnet_name   = var.subnet
       subnet_ip     = var.subnet_ip
-      subnet_region = "europe-west1"
+      subnet_region = var.region
     },
   ]
 
