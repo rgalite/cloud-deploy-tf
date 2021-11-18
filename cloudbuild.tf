@@ -9,6 +9,7 @@ resource "google_cloudbuild_trigger" "main-trigger" {
   project  = module.project-factory.project_id
 
   substitutions = {
-    "_REGION" = var.region
+    "_REGION"     = var.region
+    "_REPOSITORY" = "${var.region}-docker.pkg.dev/${module.project-factory.project_id}/docker-repository"
   }
 }

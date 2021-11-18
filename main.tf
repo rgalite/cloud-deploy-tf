@@ -11,6 +11,7 @@ module "project-factory" {
     "container.googleapis.com",
     "sourcerepo.googleapis.com",
     "clouddeploy.googleapis.com",
+    "artifactregistry.googleapis.com",
   ]
 }
 
