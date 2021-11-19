@@ -8,6 +8,7 @@ module "gke-test" {
   ip_range_pods            = "${var.subnet}-gke-test-pods"
   ip_range_services        = "${var.subnet}-gke-test-services"
   remove_default_node_pool = true
+  grant_registry_access    = true
 }
 
 module "gke-prod" {
