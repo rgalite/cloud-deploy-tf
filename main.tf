@@ -12,6 +12,7 @@ module "project-factory" {
     "sourcerepo.googleapis.com",
     "clouddeploy.googleapis.com",
     "artifactregistry.googleapis.com",
+    "cloudresourcemanager.googleapis.com",
   ]
 }
 
@@ -79,4 +80,13 @@ module "project-iam-bindings" {
       "serviceAccount:${module.project-factory.project_number}-compute@developer.gserviceaccount.com",
     ]
   }
+}
+
+resource "google_service_account_iam_binding" "cloudbuild-clouddeploy" {
+  service_account_id = "projects/${module.project-factory.project_id}/serviceAccounts/${module.project-factory.project_number}-compute@developer.gserviceaccount.com"
+  role               = "roles/iam.serviceAccountUser"
+
+  members = [
+    "serviceAccount:${module.project-factory.project_number}@cloudbuild.gserviceaccount.com",
+  ]
 }
