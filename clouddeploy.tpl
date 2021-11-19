@@ -1,7 +1,7 @@
 apiVersion: deploy.cloud.google.com/v1beta1
 kind: DeliveryPipeline
 metadata:
- name: hipster-shop
+ name: hello-app
 description: main application pipeline
 serialPipeline:
  stages:
@@ -17,7 +17,7 @@ metadata:
  name: test
 description: test cluster
 gke:
- cluster: projects/${PROJECT_ID}/locations/${REGION}/clusters/dev
+ cluster: projects/${PROJECT_ID}/locations/${REGION}/clusters/test
 ---
 
 apiVersion: deploy.cloud.google.com/v1beta1
