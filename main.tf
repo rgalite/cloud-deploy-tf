@@ -13,6 +13,7 @@ module "project-factory" {
     "clouddeploy.googleapis.com",
     "artifactregistry.googleapis.com",
     "cloudresourcemanager.googleapis.com",
+    "clouddeploy.googleapis.com",
   ]
 }
 
