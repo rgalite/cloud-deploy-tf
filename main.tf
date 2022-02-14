@@ -1,4 +1,4 @@
-module "project-factory" {
+module "project" {
   source                  = "terraform-google-modules/project-factory/google"
   random_project_id       = true
   name                    = var.project_name
@@ -22,7 +22,7 @@ module "org-policy-requireOsLogin" {
 
   policy_for  = "project"
   constraint  = "compute.requireOsLogin"
-  project_id  = module.project-factory.project_id
+  project_id  = module.project.project_id
   policy_type = "boolean"
   enforce     = false
 }
@@ -32,7 +32,7 @@ module "org-policy-requireShieldedVm" {
 
   policy_for  = "project"
   constraint  = "compute.requireShieldedVm"
-  project_id  = module.project-factory.project_id
+  project_id  = module.project.project_id
   policy_type = "boolean"
   enforce     = false
 }
@@ -42,7 +42,7 @@ module "org-policy-vmCanIpForward" {
 
   policy_for  = "project"
   constraint  = "compute.vmCanIpForward"
-  project_id  = module.project-factory.project_id
+  project_id  = module.project.project_id
   policy_type = "list"
   enforce     = false
 }
@@ -52,7 +52,7 @@ module "org-policy-vmExternalIpAccess" {
 
   policy_for  = "project"
   constraint  = "compute.vmExternalIpAccess"
-  project_id  = module.project-factory.project_id
+  project_id  = module.project.project_id
   policy_type = "list"
   enforce     = false
 }
@@ -62,32 +62,32 @@ module "org-policy-restrictVpcPeering" {
 
   policy_for  = "project"
   constraint  = "compute.restrictVpcPeering"
-  project_id  = module.project-factory.project_id
+  project_id  = module.project.project_id
   policy_type = "list"
   enforce     = false
 }
 
 module "project-iam-bindings" {
   source   = "terraform-google-modules/iam/google//modules/projects_iam"
-  projects = [module.project-factory.project_id]
+  projects = [module.project.project_id]
   mode     = "additive"
 
   bindings = {
     "roles/clouddeploy.admin" = [
-      "serviceAccount:${module.project-factory.project_number}@cloudbuild.gserviceaccount.com",
+      "serviceAccount:${module.project.project_number}@cloudbuild.gserviceaccount.com",
     ]
 
     "roles/editor" = [
-      "serviceAccount:${module.project-factory.project_number}-compute@developer.gserviceaccount.com",
+      "serviceAccount:${module.project.project_number}-compute@developer.gserviceaccount.com",
     ]
   }
 }
 
 resource "google_service_account_iam_binding" "cloudbuild-clouddeploy" {
-  service_account_id = "projects/${module.project-factory.project_id}/serviceAccounts/${module.project-factory.project_number}-compute@developer.gserviceaccount.com"
+  service_account_id = "projects/${module.project.project_id}/serviceAccounts/${module.project.project_number}-compute@developer.gserviceaccount.com"
   role               = "roles/iam.serviceAccountUser"
 
   members = [
-    "serviceAccount:${module.project-factory.project_number}@cloudbuild.gserviceaccount.com",
+    "serviceAccount:${module.project.project_number}@cloudbuild.gserviceaccount.com",
   ]
 }

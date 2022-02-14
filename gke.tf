@@ -1,6 +1,6 @@
 module "gke-test" {
   source                   = "terraform-google-modules/kubernetes-engine/google"
-  project_id               = module.project-factory.project_id
+  project_id               = module.project.project_id
   name                     = "test"
   region                   = var.region
   network                  = module.vpc.network_name
@@ -13,7 +13,7 @@ module "gke-test" {
 
 module "gke-prod" {
   source                   = "terraform-google-modules/kubernetes-engine/google"
-  project_id               = module.project-factory.project_id
+  project_id               = module.project.project_id
   name                     = "prod"
   region                   = var.region
   network                  = module.vpc.network_name

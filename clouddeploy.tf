@@ -1,5 +1,5 @@
 resource "local_file" "manifest" {
-  content  = templatefile("./clouddeploy.tpl", { PROJECT_ID = module.project-factory.project_id, REGION = var.region })
+  content  = templatefile("./clouddeploy.tpl", { PROJECT_ID = module.project.project_id, REGION = var.region })
   filename = "clouddeploy.yaml"
 }
 
@@ -11,7 +11,7 @@ module "clouddeploy_cmd" {
   skip_download         = true
 
   create_cmd_entrypoint  = "gcloud"
-  create_cmd_body        = "beta deploy apply --file=${local_file.manifest.filename} --region=${var.region} --project=${module.project-factory.project_id}"
+  create_cmd_body        = "beta deploy apply --file=${local_file.manifest.filename} --region=${var.region} --project=${module.project.project_id}"
   destroy_cmd_entrypoint = "gcloud"
-  destroy_cmd_body       = "beta deploy delete --file=${local_file.manifest.filename} --region=${var.region}  --project=${module.project-factory.project_id} --force"
+  destroy_cmd_body       = "beta deploy delete --file=${local_file.manifest.filename} --region=${var.region}  --project=${module.project.project_id} --force"
 }
