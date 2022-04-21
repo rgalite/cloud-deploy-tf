@@ -21,4 +21,5 @@ module "gke-prod" {
   ip_range_pods            = "${var.subnet}-gke-prod-pods"
   ip_range_services        = "${var.subnet}-gke-prod-services"
   remove_default_node_pool = true
+  grant_registry_access    = true
 }
