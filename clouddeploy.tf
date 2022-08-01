@@ -1,17 +1,45 @@
-resource "local_file" "manifest" {
-  content  = templatefile("./clouddeploy.tpl", { PROJECT_ID = module.project.project_id, REGION = var.region })
-  filename = "clouddeploy.yaml"
+resource "google_clouddeploy_delivery_pipeline" "cloud_deploy_pipeline" {
+  location = var.region
+  name     = "hello-app"
+  project = module.project.project_id
+
+  description = "main application pipeline"
+
+  serial_pipeline {
+    stages {
+      profiles  = []
+      target_id = "test"
+    }
+
+    stages {
+      profiles  = []
+      target_id = "prod"
+    }
+  }
 }
 
-module "clouddeploy_cmd" {
-  source = "terraform-google-modules/gcloud/google"
+resource "google_clouddeploy_target" "cloud_deploy_test_target" {
+  location    = var.region
+  name        = "test"
+  description = "test cluster"
 
-  platform              = "darwin"
-  additional_components = ["beta"]
-  skip_download         = true
+  gke {
+    cluster = "projects/${module.project.project_id}/locations/${var.region}/clusters/test"
+  }
 
-  create_cmd_entrypoint  = "gcloud"
-  create_cmd_body        = "beta deploy apply --file=${local_file.manifest.filename} --region=${var.region} --project=${module.project.project_id}"
-  destroy_cmd_entrypoint = "gcloud"
-  destroy_cmd_body       = "beta deploy delete --file=${local_file.manifest.filename} --region=${var.region}  --project=${module.project.project_id} --force"
+  project          = module.project.project_id
+  require_approval = false
+}
+
+resource "google_clouddeploy_target" "cloud_deploy_prod_target" {
+  location    = var.region
+  name        = "prod"
+  description = "test cluster"
+
+  gke {
+    cluster = "projects/${module.project.project_id}/locations/${var.region}/clusters/prod"
+  }
+
+  project          = module.project.project_id
+  require_approval = true
 }
